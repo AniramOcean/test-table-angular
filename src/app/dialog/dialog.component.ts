@@ -1,13 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
-// export interface csvData {
-//   id?: string;
-//   name: string;
-//   surname: string;
-//   languages: string;
-// }
-
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
