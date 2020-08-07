@@ -1,0 +1,21 @@
+<div class="dialog__container">
+  <h1 mat-dialog-title>
+    Редактирование
+  </h1>
+
+  <div mat-dialog-content>
+    <div *ngFor="let header of headers">
+      <div *ngFor="let data of csvData">
+        <mat-form-field class="dialog-content">
+          <mat-label>{{header | titlecase}}</mat-label>
+          <input matInput placeholder="{{data[header]}}" value="{{data[header]}}">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close color="primary">Close</button>
+    <button mat-button color="primary">Save</button>
+  </div>
+</div>

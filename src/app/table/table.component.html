@@ -1,0 +1,55 @@
+<div class="csv-file-chooser-section">
+  <button mat-button color="primary">
+    <input type="file"
+           #fileImportInput
+           id="csvFileUpload"
+           (change)="fileChangeListener($event)"
+           accept=".csv" />
+  </button>
+</div>
+
+<div *ngIf="csvData.length !== 0">
+  <div class="csv-result-table">
+  <table mat-table [dataSource]="csvData"
+                 cdkDropList [cdkDropListData]="csvData"
+                 (cdkDropListDropped)="drop($event)"
+                 class="mat-elevation-z8"
+                 #table
+      >
+
+      <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+        <th mat-header-cell *matHeaderCellDef> {{column | titlecase}} </th>
+        <td>
+          <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+        <td mat-cell *matCellDef="let element; let idx = index">
+          <div *ngIf="column !== 'languages'">{{element[column]}}</div>
+          <div *ngIf="column === 'languages'">
+            <mat-chip-list aria-label="Fish selection">
+              <div *ngFor="let lang of element['languages'].split(', ')">
+                <mat-chip color="primary" selected>{{lang}}</mat-chip>
+              </div>
+              <div>
+                <button mat-button (click)="openDialog(idx)">
+                  <span class="material-icons">edit</span>
+                </button>
+                <button mat-fab color="primary" (click)="onDeleteData(element.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </mat-chip-list>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"
+          cdkDrag [cdkDragData]="row"></tr>
+    </table>
+  </div>
+
+</div>
+
+<div *ngIf="csvData.length === 0">Данные отсутствуют</div>
