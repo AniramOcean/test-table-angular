@@ -17,7 +17,7 @@
                  #table
       >
 
-      <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+      <ng-container [matColumnDef]="column" *ngFor="let column of headers">
         <th mat-header-cell *matHeaderCellDef> {{column | titlecase}} </th>
         <td>
           <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
@@ -44,8 +44,8 @@
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"
+      <tr mat-header-row *matHeaderRowDef="headers"></tr>
+      <tr mat-row *matRowDef="let row; columns: headers;"
           cdkDrag [cdkDragData]="row"></tr>
     </table>
   </div>
