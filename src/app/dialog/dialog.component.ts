@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {TableService} from '../shared/table.service';
 
 @Component({
@@ -8,13 +8,14 @@ import {TableService} from '../shared/table.service';
   styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit {
-  csvData: any[] = [];
+  csvData: any = {};
   headers: string[] = [];
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public options: any,
     private tableService: TableService,
-    @Inject(MAT_DIALOG_DATA) public options: any) {
-    this.csvData.push(options.csvData);
+    private dialog: MatDialogRef<DialogComponent>) {
+    this.csvData = Object.assign({}, this.options.csvData);
     this.headers = options.headers;
     console.log('options:', this.options);
   }
@@ -22,4 +23,8 @@ export class DialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSaveClicked() {
+    this.tableService.setCsvItem(this.csvData, this.options.index);
+    this.dialog.close(true);
+  }
 }

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class TableService {
   headers: string[] = ['id', 'name', 'surname', 'languages'];
-  csvData: any[] = [];
+  public csvData: any[] = [];
 
   get tableHeaders(): string[] {
     return this.headers.slice();
@@ -19,9 +19,11 @@ export class TableService {
     this.csvData = csv;
   }
 
+  setCsvItem(csvItem: any, index: number) {
+    this.csvData[index] = csvItem;
+  }
+
   deleteCsvDataById(id: number) {
     this.csvData = this.csvData.filter(csv => csv.id !== id);
   }
-
-
 }
